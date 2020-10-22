@@ -32,17 +32,63 @@ def sign_up():
         if existing_user:
             flash("Username already exists")
             return redirect(url_for("sign_up"))
-
+        # creating a new user
         signup = {
             "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "location": request.form.get("location").upper()
         }
         mongo.db.users.insert_one(signup)
 
         # put the new user in session cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful")
+        return redirect(url_for("agents", username=session["user"]))
     return render_template("signup.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def log_in():
+    if request.method == "POST":
+        # check if username exists in db
+        existing_user = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+
+        if existing_user:
+            # make sure hashed password matches the user input
+            if check_password_hash(existing_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("username").lower()
+                flash("Welcome, {}".format(request.form.get("username")))
+                return redirect(url_for("agents", username=session["user"]))
+            else:
+                # if invalid password match
+                flash("Invalid Username and/or Password")
+                return redirect(url_for("log_in"))
+        else:
+            # if username doesn't exists yet
+            flash("Invalid Username and/or Password")
+            return redirect(url_for("log_in"))
+
+    return render_template("login.html")
+
+
+@app.route("/agents/<username>", methods=["GET", "POST"])
+def agents(username):
+    # grab the session user's username from mongo db
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"].capitalize()
+
+    if session["user"]:
+        return render_template("agents.html", username=username)
+
+    return redirect(url_for("login"))
+
+
+@app.route("/logout")
+def log_out():
+    # remove user from session cookies
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("log_in"))
 
 
 if __name__ == "__main__":
