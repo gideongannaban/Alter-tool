@@ -1,13 +1,24 @@
 {% extends "base.html" %}
 {% block content %}   
-
-    {% for task in tasks %}
-        {{ task.task_pnr }}<br>
-        {{ task.pax_name }}<br>
-        {{ task.task_airline }}<br>
-        {{ task.ticket_number }}<br>
-        {{ task.date_issue }}<br>
-        {{ task.is_refunded }}<br>
-    {% endfor %}
+  
+    <ul class="collapsible popout">
+        {% for task in tasks %}
+        <li>
+            <div class="collapsible-header white-text light-blue darken-4 text-shadow">
+                <i class="fas fa-caret-down"></i>
+                <strong>{{ task.task_pnr }}</strong>
+                {% if task.is_refunded == "on" %}
+                    <i class="fas fa-exclamation-circle light-blue-text text-lighten-2 tooltipped" data-position="bottom" data-tooltip="Refunded"></i>
+                {% endif %}
+            </div>
+            <div class="collapsible-body">
+                <strong>{{ task.pax_name }}</strong>
+                <p>{{ task.task_airline }}</p>
+                <p>{{ task.ticket_number }}</p>
+                <p>{{ task.date_issue }}</p>
+            </div>
+        </li>
+        {% endfor %}        
+  </ul>
 
 {% endblock %}

@@ -19,7 +19,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_tasks")
 def get_tasks():
-    tasks = mongo.db.tasks.find()
+    tasks = list(mongo.db.tasks.find())
     return render_template("tasks.html", tasks=tasks)
 
 
@@ -57,7 +57,7 @@ def log_in():
             # make sure hashed password matches the user input
             if check_password_hash(existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}".format(request.form.get("username")))
+                flash("Welcome back {}!".format(request.form.get("username").capitalize()))
                 return redirect(url_for("agents", username=session["user"]))
             else:
                 # if invalid password match
