@@ -91,8 +91,22 @@ def log_out():
     return redirect(url_for("log_in"))
 
 
-@app.route("/add_booking")
+@app.route("/add_booking", methods=["GET", "POST"])
 def add_booking():
+    if request.method == "POST":
+        is_refunded = "on" if request.form.get("is_refunded") else "off"
+        task = {
+            "task_pnr": request.form.get("task_pnr"),
+            "pax_name": request.form.get("pax_name"),
+            "task_airline": request.form.get("task_airline"),
+            "ticket_number": request.form.get("ticket_number"),
+            "date_issue": request.form.get("date_issue"),
+            "is_refunded": is_refunded,
+            "created_by": session["user"]
+        }
+        mongo.db.tasks.insert_one(task)
+        flash("New Booking Added")
+        return redirect(url_for("get_tasks"))
     return render_template("add_booking.html")
 
 if __name__ == "__main__":

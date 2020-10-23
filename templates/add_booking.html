@@ -4,39 +4,45 @@
     <h3 class="light-blue-text text-darken-4 center-align">Add Booking</h3>
 
     <div class="row card-panel grey lighten-5">
-        <form class="col s12" method="POST" action="">
+        <form class="col s12" method="POST" action="{{ url_for('add_booking')}}">
+
+            <!-- PNR field-->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                    <i class="fas fa-barcode prefix light-blue-text text-darken-4"></i>
                     <input id="task_pnr" name="task_pnr" type="text" minlength="5" maxlength="15" class="validate" required>
                     <label for="task_pnr">P N R</label>
                 </div>
             </div>
 
+            <!-- passenger/s name -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-align-left prefix light-blue-text text-darken-4"></i>                    
-                    <textarea id="pax_name" name="pax_name" minlength="5" maxlength="15" class="materialize-textarea" required></textarea>
+                    <i class="fas fa-address-card prefix light-blue-text text-darken-4"></i>                    
+                    <textarea id="pax_name" name="pax_name" minlength="5" maxlength="100" class="materialize-textarea" required></textarea>
                     <label for="pax_name">Name of Passenger/s</label>
                 </div>
             </div>
 
+            <!-- airline/s name -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="task_airline" name="task_airline" type="text" minlength="5" maxlength="15" class="validate" required>
+                    <i class="fas fa-plane prefix light-blue-text text-darken-4"></i>
+                    <input id="task_airline" name="task_airline" type="text" minlength="5" maxlength="100" class="validate" required>
                     <label for="task_airline">Name of Airline/s</label>
                 </div>
             </div>
 
+            <!-- for ticket number/s-->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="ticket_number" name="ticket_number" type="text" minlength="5" maxlength="15" class="validate" required>
+                    <i class="material-icons light-blue-text text-darken-4 prefix">confirmation_number</i>
+                    <input id="ticket_number" name="ticket_number" type="text" minlength="5" maxlength="100" class="validate" required>
                     <label for="ticket_number">Ticket Number/s</label>
                 </div>
             </div>
 
+            <!-- date of issue -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-calendar-alt prefix light-blue-text text-darken-4"></i>
@@ -45,6 +51,7 @@
                 </div>
             </div>
 
+            <!-- is refunded switch -->
             <div class="row">
                 <div class="input-field col s12">
                     <div class="switch">
@@ -55,6 +62,15 @@
                             Is it Refunded?
                         </label>
                     </div>
+                </div>
+            </div>
+            
+            <!-- submit new booking -->
+            <div class="row">
+                <div class="col s12 center-align">
+                    <button type="submit" class="btn-large light-blue darken-1 text-shadow">
+                        Add Booking <i class="fas fa-plus-square right"></i>
+                    </button>
                 </div>
             </div>
 
