@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="light-blue-text text-darken-4 center-align">Add Booking</h3>
+
+    <div class="row card-panel grey lighten-5">
+        <form class="col s12" method="POST" action="">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                    <input id="task_pnr" name="task_pnr" type="text" minlength="5" maxlength="15" class="validate" required>
+                    <label for="task_pnr">P N R</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-align-left prefix light-blue-text text-darken-4"></i>                    
+                    <textarea id="pax_name" name="pax_name" minlength="5" maxlength="15" class="materialize-textarea" required></textarea>
+                    <label for="pax_name">Name of Passenger/s</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                    <input id="task_airline" name="task_airline" type="text" minlength="5" maxlength="15" class="validate" required>
+                    <label for="task_airline">Name of Airline/s</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                    <input id="ticket_number" name="ticket_number" type="text" minlength="5" maxlength="15" class="validate" required>
+                    <label for="ticket_number">Ticket Number/s</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-calendar-alt prefix light-blue-text text-darken-4"></i>
+                    <input id="date_issue" name="date_issue" type="text" class="datepicker validate" required>
+                    <label for="date_issue">Date of Issue</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <div class="switch">
+                        <i class="fas fa-exclamation-circle prefix light-blue-text text-darken-4"></i>  
+                        <label for="is_refunded" >                        
+                        <input type="checkbox" id="is_refunded" name="is_refunded">
+                        <span class="lever"></span>
+                            Is it Refunded?
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}
