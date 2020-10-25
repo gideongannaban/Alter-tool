@@ -108,13 +108,27 @@ def add_booking():
         mongo.db.tasks.insert_one(task)
         flash("New Booking Added")
         return redirect(url_for("get_tasks"))
+        
     return render_template("add_booking.html")
 
 
-@app.route("/update_booking/<task_id>")
+@app.route("/update_booking/<task_id>", methods=["GET", "POST"])
 def update_booking(task_id):
+    if request.method == "POST":
+        is_refunded = "on" if request.form.get("is_refunded") else "off"
+        update = {
+            "task_pnr": request.form.get("task_pnr"),
+            "pax_name": request.form.get("pax_name"),
+            "task_airline": request.form.get("task_airline"),
+            "ticket_number": request.form.get("ticket_number"),
+            "date_issue": request.form.get("date_issue"),
+            "is_refunded": is_refunded,
+            "created_by": session["user"]
+        }
+        mongo.db.tasks.update({"_id": ObjectId(task_id)},update)
+        flash("Booking Updated")
+        
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
-
     return render_template("update_booking.html", task=task)
 
 if __name__ == "__main__":
