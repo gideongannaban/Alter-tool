@@ -110,6 +110,13 @@ def add_booking():
         return redirect(url_for("get_tasks"))
     return render_template("add_booking.html")
 
+
+@app.route("/update_booking/<task_id>")
+def update_booking(task_id):
+    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+
+    return render_template("update_booking.html", task=task)
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
         port=int(os.environ.get("PORT")),
