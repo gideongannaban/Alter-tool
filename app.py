@@ -125,11 +125,19 @@ def update_booking(task_id):
             "is_refunded": is_refunded,
             "created_by": session["user"]
         }
-        mongo.db.tasks.update({"_id": ObjectId(task_id)},update)
+        mongo.db.tasks.update({"_id": ObjectId(task_id)}, update)
         flash("Booking Updated")
-        
+
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     return render_template("update_booking.html", task=task)
+
+
+@app.route("/delete_booking/<task_id>")
+def delete_booking(task_id):
+    mongo.db.tasks.remove({"_id": ObjectId(task_id)})
+    flash("Booking Deleted")
+    return redirect(url_for("get_tasks"))
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
