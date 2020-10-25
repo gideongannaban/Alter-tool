@@ -7,17 +7,26 @@
         {% for task in tasks %}
         <li>
             <div class="collapsible-header white-text light-blue darken-4 text-shadow">
-                <i class="fas fa-caret-down"></i>
-                <strong>{{ task.task_pnr }}</strong>
-                {% if task.is_refunded == "on" %}
-                    <i class="fas fa-exclamation-circle light-blue-text text-lighten-2 tooltipped" data-position="bottom" data-tooltip="Refunded"></i>
-                {% endif %}
+            
+                <div class="col s3">
+                    <i class="fas fa-caret-down"></i>
+                    <a href="" class="btn-small green-accent-4">Completed</a>
+                    <a href="" class="btn-small light-blue lighten-1">Update</a>
+                </div>
+                
+                <div class="col s9">
+                    <strong>PNR: {{ task.task_pnr }}</strong>
+                    {% if task.is_refunded == "on" %}
+                        <i class="fas fa-exclamation-circle light-blue-text text-lighten-2 tooltipped" data-position="bottom" data-tooltip="Refunded"></i>
+                    {% endif %}
+                </div>
+
             </div>
             <div class="collapsible-body">
-                <strong>{{ task.pax_name }}</strong>
-                <p>{{ task.task_airline }}</p>
-                <p>{{ task.ticket_number }}</p>
-                <p>{{ task.date_issue }}</p>
+                <p>Name/s: <strong>{{ task.pax_name }}</strong></p>
+                <p>Airline/s: <strong>{{ task.task_airline }}</strong></p>
+                <p>Ticket Number/s: <strong>{{ task.ticket_number }}</strong></p>
+                <p>Issue Date: <strong>{{ task.date_issue }}</strong></p>
                 <p>by: {{ task.created_by }}</p>
             </div>
         </li>

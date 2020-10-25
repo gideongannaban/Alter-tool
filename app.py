@@ -76,6 +76,7 @@ def agents(username):
     # grab the session user's username from mongo db
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"].capitalize()
+    
 
     if session["user"]:
         return render_template("agents.html", username=username)

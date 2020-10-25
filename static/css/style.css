@@ -5,3 +5,20 @@
 .flashes h4 {
     line-height: 2;
 }
+
+#task_pnr {
+    text-transform: uppercase;
+}
+
+#pax_name, #task_airline {
+    text-transform: capitalize;
+}
+
+.btn-small {
+    margin: 5px;
+}
+
+.collapsible-header .col strong {
+    margin: 5px;
+    line-height: 42px;
+}
