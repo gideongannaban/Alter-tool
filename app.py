@@ -74,13 +74,14 @@ def log_in():
 @app.route("/agents/<username>", methods=["GET", "POST"])
 def agents(username):
     # grab the session user's username from mongo db
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"].capitalize()
-    
+    if session.get ("user"):
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"].capitalize()
 
-    if session["user"]:
-        return render_template("agents.html", username=username)
+        location = mongo.db.users.find_one(
+            {"username": session["user"]})["location"]
 
+        return render_template("agents.html", username=username, location=location)
     return redirect(url_for("login"))
 
 
@@ -103,12 +104,13 @@ def add_booking():
             "ticket_number": request.form.get("ticket_number"),
             "date_issue": request.form.get("date_issue"),
             "is_refunded": is_refunded,
+            "task_comment": request.form.get("task_comment"),
             "created_by": session["user"]
         }
         mongo.db.tasks.insert_one(task)
         flash("New Booking Added")
         return redirect(url_for("get_tasks"))
-        
+
     return render_template("add_booking.html")
 
 

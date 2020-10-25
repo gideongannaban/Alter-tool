@@ -19,7 +19,8 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-address-card prefix light-blue-text text-darken-4"></i>                    
-                    <textarea id="pax_name" name="pax_name" minlength="5" maxlength="100" class="materialize-textarea validate" required></textarea>
+                    <input id="pax_name" name="pax_name" minlength="5" maxlength="100" 
+                        class="validate" type="text" required>
                     <label for="pax_name">Name of Passenger/s</label>
                 </div>
             </div>
@@ -51,6 +52,15 @@
                     <label for="date_issue">Date of Issue</label>
                 </div>
             </div>
+            
+            <!-- additional comments section -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-address-card prefix light-blue-text text-darken-4"></i>                    
+                    <textarea id="task_comment" name="task_comment" minlength="5" maxlength="100" class="materialize-textarea validate" required></textarea>
+                    <label for="task_comment">Additional Comments:</label>
+                </div>
+            </div>
 
             <!-- is refunded switch -->
             <div class="row">
@@ -66,9 +76,12 @@
                 </div>
             </div>
             
-            <!-- submit new booking -->
+            <!-- submit and cancel new booking -->
             <div class="row">
                 <div class="col s12 center-align">
+                    <a href="{{ url_for('get_tasks') }} " class="btn-large red text-shadow">
+                        Cancel <i class="fas fa-times-circle right"></i>
+                    </a>
                     <button type="submit" class="btn-large light-blue darken-1 text-shadow validate">
                         Add Booking <i class="fas fa-plus-square right"></i>
                     </button>
